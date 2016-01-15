@@ -1,0 +1,45 @@
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin-right: 5px;
+}
+
+fieldset {
+  margin-bottom: 5px;
+}
+
+tbody td:first-child {
+  font-style: italic;
+}
+
+tbody td:nth-child(2) {
+  color: red;
+}
+
+tbody td:nth-child(4) {
+  color: blue;
+}
+
+tbody tr:nth-of-type(odd) {
+   background-color: #98fb98;
+}
+
+tbody tr:nth-of-type(even) {
+   background-color: #add8e6;
+}
+
+.outer-content {
+  margin-top: 20px;
+  width: 75%;
+  background-color: pink;
+  padding: 20px;
+}
+
+.inner-content {
+  width: 75%;
+  text-align: center;
+  background-color: #add8e6;
+  margin: 0 auto;
+}
