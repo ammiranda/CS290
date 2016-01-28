@@ -3,20 +3,23 @@ function Automobile( year, make, model, type ){
     this.make = make; //string (ex. Honda, Ford)
     this.model = model; //string (ex. Accord, Focus)
     this.type = type; //string (ex. Pickup, SUV)
+
+    this.logMe = function(bool) {
+       var str = this.year + ' ' + this.make + ' ' + this.model;
+       if (bool) {
+          str += ' ' + this.type;
+       }
+       console.log(str);
+    }.bind(this);
 }
 
-function logCar(auto) {
-   var str = '';
-   for (var key in auto) {
-      str += auto[key] + ' ';
-   }
-   console.log(str);
-}
 
-function main(arr) {
+function main(arr, bool) {
+   console.log('*****');
    for (var i = 0; i < arr.length; i++) {
-      logCar(arr[i]);
+      arr[i].logMe(bool);
    }
+   console.log('*****');
 }
 
 var automobiles = [ 
@@ -27,20 +30,18 @@ var automobiles = [
     new Automobile(2005, "Lotus", "Elise", "Roadster"),
     new Automobile(2008, "Subaru", "Outback", "Wagon")
     ];
-console.log("Original:");
-main(automobiles);
 
 var yearSorted = sortArr(yearComparator, automobiles);
-console.log("Sorted by year");
-main(yearSorted);
+console.log("The cars sorted by year are:");
+main(yearSorted, false);
 
 var makeSorted = sortArr(makeComparator, automobiles);
-console.log("Sorted by make");
-main(makeSorted);
+console.log("The cars sorted by make are:");
+main(makeSorted, false);
 
 var typeSorted = sortArr(typeComparator, automobiles);
-console.log("Sorted by type");
-main(typeSorted);
+console.log("The cars sorted by type are:");
+main(typeSorted, true);
 
 /*This function sorts arrays using an arbitrary comparator. You pass it a comparator and an array of objects appropriate for that comparator and it will return a new array which is sorted with the largest object in index 0 and the smallest in the last index*/
 function sortArr( comparator, array ){
