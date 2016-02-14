@@ -1,3 +1,6 @@
+*.zip
+*.min.css
+bower_components/
 .DS_Store
 ec2git/
 node_modules/
