@@ -22,14 +22,10 @@ app.get('/', function(req, res){
 
 app.post('/', function(req, res){
 	var qParams = [];
-	if (typeof req.body !== 'object') {
-		req.body = JSON.parse(req.body);
-	}
 	for (var p in req.body){
 		qParams.push({'name': p, 'value': req.body[p]});
 	}
 	var context = {};
-	console.log(req.body);
 	context.dataList = qParams;
 	res.render('post', context);
 });
