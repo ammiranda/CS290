@@ -41,7 +41,6 @@ function bindButtons() {
 		payload.weight = document.getElementById('in-weight').value;
 		req.open("POST", url, true);
 		req.setRequestHeader('Content-Type', 'application/json');
-		req.send(JSON.stringify(payload));
 		req.addEventListener('load', function() {
 			if (req.status >= 200 && req.status < 400) {
 				var res = JSON.parse(JSON.parse(req.responseText).data);
@@ -53,6 +52,7 @@ function bindButtons() {
 				alert(str);
 			}
 		});
+		req.send(JSON.stringify(payload));
 		e.preventDefault();
 	});
 }
