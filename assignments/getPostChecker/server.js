@@ -22,11 +22,16 @@ app.get('/', function(req, res){
 
 app.post('/', function(req, res){
 	var qParams = [];
-	for (var p in req.body){
-		qParams.push({'name': p, 'value': req.body[p]});
+	for (var p in req.query){
+		qParams.push({'name': p, 'value': req.query[p]});
+	}
+        var bParams = [];
+	for (var b in req.body) {
+		bParams.push({'name': b, 'value': req.body[b]});
 	}
 	var context = {};
-	context.dataList = qParams;
+	context.queryList = qParams;
+        context.bodyList = bParams;
 	res.render('post', context);
 });
 
