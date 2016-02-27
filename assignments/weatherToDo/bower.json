@@ -1,0 +1,29 @@
+{
+  "name": "weatherToDo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ammiranda/CS290",
+  "authors": [
+    "Alexander <alexandermichaelmiranda@gmail.com>"
+  ],
+  "description": "Weather to-do",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "weather",
+    "to-do",
+    "list"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}

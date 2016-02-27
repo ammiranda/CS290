@@ -1,3 +1,5 @@
+credentials.*
+lib/
 *.zip
 *.min.css
 bower_components/

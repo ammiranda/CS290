@@ -1,13 +1,40 @@
 <h1>Hello {{ name }} Here is your To Do List!</h1>
 <h2>You have {{ toDoCount }} items on your to do list.</h2>
-<form method="post">
-  <input type="text" name="name" id="toDoName" />
-  <input type="submit" name="Add Item" value="Add Item" />
+<form class="form-horizontal" method="post">
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name:</label>
+    <div class="col-sm-10">
+      <input type="text" name="name" id="toDoName" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="zip" class="col-sm-2 control-label">Zip Code:</label>
+    <div class="col-sm-10">
+      <input type="number" name="zip" id="location" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="minTemp" class="col-sm-2 control-label">Min Temp (&#8457;):</label>
+    <div class="col-sm-10">
+      <input type="number" name="minTemp" id="toDo-minTemp" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="maxTemp" class="col-sm-2 control-label">Max Temp (&#8457;):</label>
+    <div class="col-sm-10">
+      <input type="number" name="maxTemp" id="toDo-maxTemp" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" name="Add Item" value="Add Item" />
+    </div>
+  </div>
 </form>
 {{#if toDo}}
 <ul>
   {{#each toDo}}
-  <li>
+  <li id="{{ this.id }}">
     <h3>{{ this.name }}</h3>
     <form method="post">
       <input type="hidden" name="id" value="{{ this.id }}" />

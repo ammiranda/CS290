@@ -2,10 +2,14 @@ var request = require('request');
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var credentials = require('./credentials');
+
+console.log(credentials.owm);
 
 var app = express();
 
 app.use(session({saveUninitialized: false, resave: false, secret: 'SuperSecretPassword'}));
+app.use(express.static('public'));
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 
 app.engine('handlebars', handlebars.engine);
