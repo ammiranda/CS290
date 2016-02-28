@@ -4,8 +4,6 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var credentials = require('./credentials');
 
-console.log(credentials.owm);
-
 var app = express();
 
 app.use(session({saveUninitialized: false, resave: false, secret: 'SuperSecretPassword'}));
@@ -31,6 +29,22 @@ app.get('/', function(req, res, next) {
   res.render('toDo', ctx);
 });
 
+app.get('/weatherCheck', function(req, res, next) {
+  var ctx = {};
+  var zip = req.zipcode;
+  request('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + '&APPID=' + credentials.owm, function(err, res, body) {
+    if (!err && res.statusCode < 400) {
+      var temp = res.main.temp;
+      ctx.temp = temp;
+    } else {
+      console.log(err);
+      if (res) {
+        console.log(res.statusCode);
+      }
+    }
+  });
+});
+
 app.post('/', function(req, res) {
   var ctx = {};
 
@@ -46,7 +60,14 @@ app.post('/', function(req, res) {
   }
 
   if (req.body['Add Item']) {
-    req.session.toDo.push({'name': req.body.name, 'id': req.session.curId});
+    var item = {
+      'name': req.body.name,
+      'id': req.session.curId,
+      'zip': req.body.zip,
+      'minTemp': req.body.minTemp,
+      'maxTemp': req.body.maxTemp
+    };
+    req.session.toDo.push(item);
     req.session.curId++;
   }
 
