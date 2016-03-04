@@ -1,0 +1,24 @@
+{
+  "name": "databaseui",
+  "description": "database interaction",
+  "main": "server.js",
+  "authors": [
+    "Alexander Miranda"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ammiranda/CS290",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
