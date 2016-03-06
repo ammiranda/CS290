@@ -34,20 +34,22 @@
 {{#if toDo}}
 <ul>
   {{#each toDo}}
-  <li id="{{ this.id }}">
-    <h3>{{ this.name }}</h3>
-    <h3>{{ this.zip }}</h3>
-    <h3>{{ this.minTemp }}</h3>
-    <h3>{{ this.maxTemp }}</h3>
-    <form class="form-horizontal" method="post">
-      <input type="hidden" name="id" value="{{ this.id }}" />
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <input type="submit" name="Done" value="Mark as Done" />
+    <li id="{{ this.id }}">
+      <h3>{{ this.name }}</h3>
+      <ul>
+        <li>Zipcode: {{ this.zip }}</li>
+        <li>Min Temp: {{ this.minTemp }}</li>
+        <li>Max Temp: {{ this.maxTemp }}</li>
+      </ul>
+      <form class="form-horizontal" method="post">
+        <input type="hidden" name="id" value="{{ this.id }}" />
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" name="Done" value="Mark as Done" />
+          </div>
         </div>
-      </div>
-    </form>
-  </li>
+      </form>
+    </li>
   {{/each}}
 </ul>
 {{/if}}
