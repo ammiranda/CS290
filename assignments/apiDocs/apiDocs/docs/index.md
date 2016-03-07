@@ -4,6 +4,18 @@
 
 [Jquery](https://jquery.com) is a third party JavaScript framework that is used for Browser-based scripting. Jquery became popular because it allowed developers to write their JavaScript code once and it would work roughly the same in the majority of browsers. Given our course's focus on AJAX I thought it would be good to document and showcase how the Jquery AJAX API works.
 
+###Getting Started with Jquery
+
+There are multiple ways to include jquery in your projects. One of the more popular avenues is to include a script tag into your main html file like so:
+
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+```
+
+This script tag will call out to the Google Content Delivery Network and load the jquery code so it is avaliable to your custom JavaScript defined off the '$' symbol.
+
+Content delivery networks are nice, but connectivity might be an issue and as such the desired code might not be able to be loaded remotely so as a result the needed libraries can be stored locally with the server. 
+
 ###Simple Example
 
 ```javascript
