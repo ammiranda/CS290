@@ -3,3 +3,4 @@ pages:
 - Home: index.md
 - About: about.md
 theme: readthedocs
+extra_javascript: [script.js]

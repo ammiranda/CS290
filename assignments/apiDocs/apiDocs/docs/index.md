@@ -16,6 +16,10 @@ This script tag will call out to the Google Content Delivery Network and load th
 
 Content delivery networks are nice, but connectivity might be an issue and as such the desired code might not be able to be loaded remotely so as a result the needed libraries can be stored locally with the server. 
 
+This can be accomplished by manually downloading the source files and linking to them using script tags pointing to the local file system on the server, but there is a better way.
+
+Twitter developed a package manager for front-end dependencies known as [bower](http://bower.io). It functions a lot like [npm](https://www.npmjs.com) where you would go to the root of your project and type 'bower init' which tells bower the root directory it will be writing its packages to. After initialization you can have jquery installed by simpling typing 'bower install jquery --save' which will install the jquery source into a folder called 'bower_components' and will write jquery as a dependency to the bower.json file. 
+
 ###Simple Example
 
 ```javascript
@@ -29,6 +33,27 @@ Content delivery networks are nice, but connectivity might be an issue and as su
 ```
 
 Jquery is scoped to the '$' when used in the browser so we are using the ajax method defined on the jquery object. As can be seen in the code above a post is being made to a php url with the data being sent as JSON. The resolution of the request is handled using promises notably the .done method. Jquery ajax supports promises as well as the more traditional callback pattern. Let's go over some of the configuration options when composing an AJAX request using Jquery.
+
+###Live Demo
+
+Push the button below to run the code shown below:
+
+```javascript
+$.ajax({
+   url: 'https://api.github.com/repos/vmg/redcarpet/issues?state=closed',
+   dataType: 'jsonp',
+   success: function(data, textStatus, jqXHR) {
+      var output = data.data[0].labels_url;
+      alert(output);
+   },
+   error: function(jqXHR, textStatus, errorThrown) {
+      alert(errorThrown);
+   }
+});
+```
+
+<button id="demo">Click Here</button>
+
 
 ###Comparing Jquery AJAX to native AJAX API
 
