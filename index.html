@@ -153,8 +153,9 @@
    url: 'https://api.github.com/repos/vmg/redcarpet/issues?state=closed',
    dataType: 'jsonp',
    success: function(data, textStatus, jqXHR) {
-      var output = data.data[0].labels_url;
-      alert(output);
+      var title = data.data[0].title;
+      var body = data.data[0].body;
+      alert(&quot;title: &quot; + title + &quot; body: &quot; + body);
    },
    error: function(jqXHR, textStatus, errorThrown) {
       alert(errorThrown);
@@ -162,6 +163,7 @@
 });
 </code></pre>
 
+<p>This demo calls to the <a href="https://developer.github.com/v3/">Github API</a> and alerts the title and body of the first comment on a closed issue on a project called redcarpet.</p>
 <p><button id="demo">Click Here</button></p>
 <h3 id="comparing-jquery-ajax-to-native-ajax-api">Comparing Jquery AJAX to native AJAX API</h3>
 <p>Typical Native AJAX call:</p>
@@ -316,5 +318,5 @@ req.send(JSON.stringify(payload));
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-03-09 01:52:45.138080
+Build Date UTC : 2016-03-09 02:05:37.807214
 -->

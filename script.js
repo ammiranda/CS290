@@ -6,8 +6,9 @@ $(document).ready(function(){
          url: 'https://api.github.com/repos/vmg/redcarpet/issues?state=closed',
          dataType: 'jsonp',
          success: function(data, textStatus, jqXHR) {
-            var output = data.data[0].labels_url;
-            alert(output);
+            var title = data.data[0].title;
+            var body = data.data[0].body;
+            alert("title: " + title + " body: " + body);
          },
          error: function(jqXHR, textStatus, errorThrown) {
             alert(errorThrown);
