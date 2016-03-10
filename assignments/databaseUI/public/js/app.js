@@ -1,7 +1,18 @@
 function renderTable(data, textStatus, jqXHR) {
    var json = JSON.parse(data.results);
    $('.tableContainer').html('');
-   console.log(json);
+   
+   if (json.length > 0) {
+      var body = document.body;
+      var table = document.createElement('table');
+      var tableBody = document.createElement('tbody');
+
+      table.style.width = '100%';
+      table.setAttribute('border', '1');
+
+   } else {
+      $('.tableContainer').html('No records to show');
+   }
 }
 
 function getData() {

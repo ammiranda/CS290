@@ -55,7 +55,7 @@ app.post('/tasks', function(req, res) {
    var weight = body.weight;
    var date = body.date;
    var units = body.units === 'kg' ? 0 : 1;
-   var values = "'" + name + "'," + reps + ',' + weight + ',' + date + ',' + units;
+   var values = "'" + name + "'," + reps + ',' + weight + ",'" + date + "'," + units;
    pool.query('INSERT INTO todo(name, rep, weight, date, units) VALUES (' + values + ');', function(err, rows, fields) {
       if (err) {
          console.log(err);
