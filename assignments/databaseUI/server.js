@@ -50,7 +50,7 @@ app.get('/tasks', function(req, res) {
 
 app.post('/tasks', function(req, res) {
    var body = req.body;
-   var name = body.name;
+   var name = body.name === '' ? null : body.name;
    var reps = body.rep;
    var weight = body.weight;
    var date = body.date;
@@ -71,7 +71,7 @@ app.post('/', function(req, res){
 });
 
 app.delete('/tasks', function(req, res) {
-   var id = req.id;
+   var id = req.query.id;
    var ctx = {};
    pool.query('DELETE FROM todo WHERE id = ' + id, function(err, rows, fields) {
       if (err) {

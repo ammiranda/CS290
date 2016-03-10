@@ -1,5 +1,19 @@
+function getId(e) {
+   return $(e.target).parent('tr').data('id');
+}
+
 function addListeners() {
    $('.delete').on('click', function(e) {
+      var id = getId(e);
+      $.ajax({
+         url: '/tasks?id=' + id,
+         method: 'DELETE',
+         success: getData
+      });    
+   });
+
+   $('.edit').on('click', function(e) {
+      var id = getId(e);
       
    });
 }
@@ -36,13 +50,23 @@ function renderTable(data, textStatus, jqXHR) {
                tr.setAttribute('data-id', json[i][k]);
             }
          }
+         var edit = document.createElement('button');
+         edit.className = 'btn btn-default edit';
+         edit.appendChild(document.createTextNode('edit'));
+         var del = document.createElement('button');
+         del.className = 'btn btn-danger delete';
+         del.appendChild(document.createTextNode('delete'));
+         tr.appendChild(edit);
+         tr.appendChild(del);
          tableBody.appendChild(tr); 
       }
       table.appendChild(tableBody);
-      body.appendChild(table);
+      var div = document.getElementsByClassName('tableContainer')[0];
+      div.appendChild(table);
    } else {
       $('.tableContainer').html('No records to show');
    }
+   addListeners();
 }
 
 function getData() {
@@ -59,7 +83,9 @@ $(document).ready(function(){
    $('.add-task').on('click', function(e) {
       e.preventDefault();
       var newTask = {};
-      newTask['name'] = $('.name').val();
+      if ($('.name').val() !== ''){
+        newTask['name'] = $('.name').val();
+      }
       newTask['rep'] = $('.rep').val();
       newTask['weight'] = $('.weight').val();
       newTask['date'] = $('.date').val();
