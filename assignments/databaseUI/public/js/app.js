@@ -1,5 +1,5 @@
 function renderTable(data, textStatus, jqXHR) {
-   var json = data;
+   var json = JSON.parse(data.results);
    $('.tableContainer').html('');
    console.log(json);
 }
