@@ -1,3 +1,9 @@
+function addListeners() {
+   $('.delete').on('click', function(e) {
+      
+   });
+}
+
 function renderTable(data, textStatus, jqXHR) {
    var json = JSON.parse(data.results);
    $('.tableContainer').html('');
@@ -9,7 +15,31 @@ function renderTable(data, textStatus, jqXHR) {
 
       table.style.width = '100%';
       table.setAttribute('border', '1');
-
+      var tr = document.createElement('tr');
+      for (var key in json[0]) {
+         if (key !== 'id') {
+            var th = document.createElement('th');
+            th.appendChild(document.createTextNode(key));
+            tr.appendChild(th);
+         }
+      }
+      tableBody.appendChild(tr);
+      for (var i = 0; i < json.length; i++) {
+         tr = document.createElement('tr');
+         for (var k in json[i]) {
+            if (k !== 'id') {
+               var td = document.createElement('td');
+               var label = json[i][k];
+               td.appendChild(document.createTextNode(label));
+               tr.appendChild(td);
+            } else {
+               tr.setAttribute('data-id', json[i][k]);
+            }
+         }
+         tableBody.appendChild(tr); 
+      }
+      table.appendChild(tableBody);
+      body.appendChild(table);
    } else {
       $('.tableContainer').html('No records to show');
    }
