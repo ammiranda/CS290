@@ -61,7 +61,8 @@ app.post('/tasks', function(req, res) {
          console.log(err);
          return;
       }
-      res.send('post successful');
+      var data = JSON.stringify(rows);
+      res.send(data);
    });
 });
 

@@ -1,11 +1,19 @@
-$(document).ready(function(){
+function renderTable(data, textStatus, jqXHR) {
+   var json = data;
+   $('.tableContainer').html('');
+   console.log(json);
+}
+
+function getData() {
    $.ajax({
       url: '/tasks',
       dataType: 'json',
-      success: function(data, textStatus, jqXHR) {
-         console.log(data);
-      }
-   });   
+      success: renderTable
+   });
+}
+
+$(document).ready(function(){
+   getData();
 
    $('.add-task').on('click', function(e) {
       e.preventDefault();
@@ -19,9 +27,7 @@ $(document).ready(function(){
          url: '/tasks',
          method: 'POST',
          data: newTask,
-         success: function(data, textStatus, jqXHR) {
-            console.log(data);
-         }
+         success: getData
       });   
    });       
 });
