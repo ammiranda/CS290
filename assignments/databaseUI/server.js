@@ -38,13 +38,35 @@ app.get('/', function(req, res){
 
 app.get('/tasks', function(req, res) {
    var ctx = {};
-   pool.query('SELECT * FROM todo', function(err, rows, fields) {
+   if (!req.query.id) {
+      pool.query('SELECT * FROM todo', function(err, rows, fields) {
+         if (err) {
+            console.log(err);
+            return;
+         }
+         ctx.results = JSON.stringify(rows);
+         res.send(ctx);
+      });
+   } else {
+     pool.query('SELECT * FROM todo WHERE id = ' + req.query.id, function(err, rows, fields) {
+        if (err) {
+           console.log(err);
+           return;
+        }
+        ctx.results = JSON.stringify(rows);
+        res.send(ctx);
+     });
+   }
+});
+
+app.put('/tasks', function(req, res) {
+   var units = req.query.units === 'kg' ? 0 : 1;
+   pool.query('UPDATE todo SET name=?, rep=?, weight=?, date=?, units=? WHERE id=? ', [req.query.name, req.query.rep, req.query.weight, req.query.date, units, req.query.id], function(err, result) {
       if (err) {
-         next(err);
+         console.log(err);
          return;
       }
-      ctx.results = JSON.stringify(rows);
-      res.send(ctx);
+      res.render('form');
    });
 });
 

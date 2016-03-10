@@ -2,6 +2,42 @@ function getId(e) {
    return $(e.target).parent('tr').data('id');
 }
 
+function makeEditForm(e, id) {
+   $('.editContainer').html('');
+      var form = '<h3>Edit Form</h3><form class="form-horizontal edit-form col-md-6">' + $('.post').html() + '</form>';
+      $('.editContainer').append(form);
+      $('.edit-form .add-task').removeClass('add-task').addClass('edit-task');
+   $.ajax({
+      url: '/tasks?id=' + id,
+      success: function(data) {
+         var obj = JSON.parse(data.results);
+         var units = obj[0].units === 1 ? 'lbs' : 'kg';
+         $('.edit-form .name').val(obj[0].name);
+         $('.edit-form .rep').val(obj[0].rep);
+         $('.edit-form .weight').val(obj[0].weight);
+         $('.edit-form .date').val(obj[0].date);
+         $('.edit-form .units').val(units); 
+         $('.edit-form .edit-task').on('click', function(e) {
+            e.preventDefault();
+            var str = '';
+            str += '?id=' + id;
+            str += '&name=' + $('.edit-form .name').val();
+            str += '&rep=' + $('.edit-form .rep').val();
+            str += '&weight=' + $('.edit-form .weight').val();
+            str += '&date=' + $('.edit-form .date').val();
+            str += '&units=' + $('.edit-form .units').val();
+            if ($.trim($('.edit-form .name').val()) !== '') {
+               $.ajax({
+                  method: 'PUT',
+                  url: '/tasks' + str,
+                  success: getData
+               });
+            }
+         });
+       }
+   });       
+}
+
 function addListeners() {
    $('.delete').on('click', function(e) {
       var id = getId(e);
@@ -14,7 +50,7 @@ function addListeners() {
 
    $('.edit').on('click', function(e) {
       var id = getId(e);
-      
+      makeEditForm(e, id);
    });
 }
 
@@ -37,6 +73,9 @@ function renderTable(data, textStatus, jqXHR) {
             tr.appendChild(th);
          }
       }
+      var th = document.createElement('th');
+      tr.appendChild(th);
+      tr.appendChild(th);
       tableBody.appendChild(tr);
       for (var i = 0; i < json.length; i++) {
          tr = document.createElement('tr');
@@ -57,6 +96,7 @@ function renderTable(data, textStatus, jqXHR) {
          del.className = 'btn btn-danger delete';
          del.appendChild(document.createTextNode('delete'));
          tr.appendChild(edit);
+         tableBody.appendChild(tr);
          tr.appendChild(del);
          tableBody.appendChild(tr); 
       }
@@ -70,6 +110,7 @@ function renderTable(data, textStatus, jqXHR) {
 }
 
 function getData() {
+   $('.editContainer').html('');
    $.ajax({
       url: '/tasks',
       dataType: 'json',
@@ -83,18 +124,18 @@ $(document).ready(function(){
    $('.add-task').on('click', function(e) {
       e.preventDefault();
       var newTask = {};
-      if ($('.name').val() !== ''){
-        newTask['name'] = $('.name').val();
-      }
+      newTask['name'] = $('.name').val();
       newTask['rep'] = $('.rep').val();
       newTask['weight'] = $('.weight').val();
       newTask['date'] = $('.date').val();
       newTask['units'] = $('.units').val();
-      $.ajax({
-         url: '/tasks',
-         method: 'POST',
-         data: newTask,
-         success: getData
-      });   
+      if ($.trim(newTask['name']) !== '') {
+         $.ajax({
+            url: '/tasks',
+            method: 'POST',
+            data: newTask,
+            success: getData
+         });   
+      }
    });       
 });
